@@ -19,10 +19,11 @@ class CorrentistaController extends Controller
             $model->cpf = $json_obj->Cpf;
             $model->data_nasc = $json_obj->Data_Nasc;
 
-            $model->save();
+            parent::getResponseAsJSON($model->save());
               
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
@@ -39,6 +40,7 @@ class CorrentistaController extends Controller
               
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
@@ -56,6 +58,7 @@ class CorrentistaController extends Controller
 
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }

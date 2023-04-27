@@ -11,7 +11,7 @@ class CorrentistaDAO extends DAO{
         parent::__construct();
     }
 
-    public function insert(CorrentistaModel $m) : bool
+    public function insert(CorrentistaModel $m) : CorrentistaModel
     {
         $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) velues (?, ?, ?, ?)";
 
@@ -21,7 +21,11 @@ class CorrentistaDAO extends DAO{
         $stmt->bindValue(3, $m->data_nasc);
         $stmt->bindValue(4, $m->senha);
 
-        return $stmt->execute();
+        $stmt->execute();
+
+        $m->id = $this->conexao->lastInsertId();
+
+        return $m;
     }
 
     public function update(CorrentistaModel $m)
