@@ -2,9 +2,12 @@
 
 namespace Api\DAO;
 
+use Api\Controller\Controller;
 use Api\Model\CorrentistaModel;
+use Exception;
+use PDOException;
 
-class CorrentistaDAO extends DAO{
+class CorrentistaDAO extends DAO {
 
     public function __construct()
     {
@@ -13,17 +16,25 @@ class CorrentistaDAO extends DAO{
 
     public function insert(CorrentistaModel $m) : CorrentistaModel
     {
-        $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) velues (?, ?, ?, ?)";
+        try
+        {
+            $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) Values (?, ?, ?, ?) ";
 
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->nome);
-        $stmt->bindValue(2, $m->cpf);
-        $stmt->bindValue(3, $m->data_nasc);
-        $stmt->bindValue(4, $m->senha);
+            $stmt = $this->conexao->prepare($sql);
+            $stmt->bindValue(1, $m->nome);
+            $stmt->bindValue(2, $m->cpf);
+            $stmt->bindValue(3, $m->data_nasc);
+            $stmt->bindValue(4, $m->senha);
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $m->id = $this->conexao->lastInsertId();
+           // $m->id = $this->conexao->lastInsertId();            
+
+        } catch(PDOException $e)
+        {
+            Controller::LogError($e);
+            //throw new Exception(message: "Erro no banco", previous: $e);
+        }
 
         return $m;
     }
@@ -61,4 +72,19 @@ class CorrentistaDAO extends DAO{
 
         return $stmt->fetchAll(DAO::FETCH_CLASS);
     }
+
+    public function selectByCPFandSenha(string $cpf, string $senha)
+    {
+        $sql = "SELECT * FROM Correntista WHERE cpf = ? AND senha = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $cpf);
+        $stmt->bindValue(2, $senha);
+
+        $stmt->execute();
+
+        return $stmt->fetchObject("Api\Model\CorrentistaModel");
+    }
+
 }

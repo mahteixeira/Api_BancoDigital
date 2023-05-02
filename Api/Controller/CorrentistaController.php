@@ -14,16 +14,17 @@ class CorrentistaController extends Controller
             $json_obj = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
-            $model->id = $json_obj->Id;
-            $model->nome = $json_obj->Nome;
-            $model->cpf = $json_obj->Cpf;
-            $model->data_nasc = $json_obj->Data_Nasc;
+            $model->id = $json_obj->id;
+            $model->nome = $json_obj->nome;
+            $model->cpf = $json_obj->cpf;
+            $model->data_nasc = $json_obj->data_nasc;
+            $model->senha = $json_obj->senha;
 
             parent::getResponseAsJSON($model->save());
               
         } catch (Exception $e) {
 
-            parent::LogError($e);
+            parent::LogError($e->getPrevious());
             parent::getExceptionAsJSON($e);
         }
     }
@@ -59,6 +60,26 @@ class CorrentistaController extends Controller
         } catch (Exception $e) {
 
             parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
+    }
+
+    public static function conferirlogin() : void
+    {
+        try 
+        {
+            $cpf = parent::getStringFromUrl($_GET['cpf']);
+            $senha = parent::getStringFromUrl($_GET['senha']);
+            
+            $model = new CorrentistaModel();
+
+            $model->getByCPFAndSenha($cpf, $senha);
+
+            parent::getResponseAsJSON($model->rows);
+
+        }
+        catch (Exception $e)
+        {
             parent::getExceptionAsJSON($e);
         }
     }

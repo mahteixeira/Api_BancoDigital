@@ -4,15 +4,16 @@ namespace Api\Model;
 
 use Api\DAO\ContaDAO;
 use Api\DAO\CorrentistaDAO;
+use Exception;
 
-class CorrentistaModel extends Model 
+class CorrentistaModel extends Model
 {
     public $id, $nome, $cpf, $data_nasc, $senha;
     public $lista_conta;
 
     public function save()
     {
-        if($this->id == null)
+        if ($this->id == null)
             return (new CorrentistaDAO())->insert($this);
         else
             return (new CorrentistaDAO())->update($this);
@@ -28,11 +29,24 @@ class CorrentistaModel extends Model
         (new CorrentistaDAO())->delete($this->id);
     }
 
-    public function getAllContas(){   
+    public function getAllContas()
+    {
         include './DAO/ContaDAO.php';
 
         $dao = new ContaDAO();
 
         $this->lista_conta = $dao->select();
+    }
+
+    public function getByCPFandSenha(string $cpf, string $senha)
+    {
+        try 
+        {
+            $dao = new CorrentistaDAO();
+            $this->rows = $dao->selectByCPFAndSenha($cpf, $senha);
+        
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 }
