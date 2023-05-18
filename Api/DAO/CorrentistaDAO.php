@@ -73,18 +73,19 @@ class CorrentistaDAO extends DAO {
         return $stmt->fetchAll(DAO::FETCH_CLASS);
     }
 
-    public function selectByCPFandSenha(string $cpf, string $senha)
+    public function getCorrentistaByCpfAndSenha($cpf, $senha)
     {
-        $sql = "SELECT * FROM Correntista WHERE cpf = ? AND senha = ?";
+        $sql = "SELECT * FROM correntista c WHERE cpf = ? AND senha = ? ";
 
         $stmt = $this->conexao->prepare($sql);
-
         $stmt->bindValue(1, $cpf);
         $stmt->bindValue(2, $senha);
 
         $stmt->execute();
 
-        return $stmt->fetchObject("Api\Model\CorrentistaModel");
+        $obj = $stmt->fetchObject("Api\Model\CorrentistaModel");
+
+        return (is_object($obj)) ? $obj : new CorrentistaModel();
     }
 
 }

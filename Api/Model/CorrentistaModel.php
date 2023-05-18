@@ -38,15 +38,10 @@ class CorrentistaModel extends Model
         $this->lista_conta = $dao->select();
     }
 
-    public function getByCPFandSenha(string $cpf, string $senha)
-    {
-        try 
-        {
-            $dao = new CorrentistaDAO();
-            $this->rows = $dao->selectByCPFAndSenha($cpf, $senha);
-        
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
+    public function auth($cpf, $senha){
+		
+        $dao = new CorrentistaDAO();
+
+		return $dao->getCorrentistaByCpfAndSenha($cpf, $senha);		
+	}
 }

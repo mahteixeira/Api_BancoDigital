@@ -12,10 +12,11 @@ switch($url)
 
     case '/correntista/listar':
         CorrentistaController::listar();
-        break;
+    break;
         
-
     case '/correntista/entrar':
+        CorrentistaController::Login();
+    break;
 
     case '/conta/pix/enviar':
 

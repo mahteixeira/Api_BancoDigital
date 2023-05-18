@@ -64,23 +64,23 @@ class CorrentistaController extends Controller
         }
     }
 
-    public static function conferirlogin() : void
-    {
-        try 
-        {
-            $cpf = parent::getStringFromUrl($_GET['cpf']);
-            $senha = parent::getStringFromUrl($_GET['senha']);
-            
-            $model = new CorrentistaModel();
+    public static function Login() : void
+	{
+		try
+		{
+			$json_obj = json_decode(file_get_contents('php://input'));
 
-            $model->getByCPFAndSenha($cpf, $senha);
 
-            parent::getResponseAsJSON($model->rows);
+			$model = new CorrentistaModel();
+			$model->cpf = $json_obj->cpf;
+			$model->senha = $json_obj->senha;
 
-        }
-        catch (Exception $e)
-        {
-            parent::getExceptionAsJSON($e);
-        }
-    }
+			parent::getResponseAsJSON($model->auth($json_obj->cpf, $json_obj->senha));
+
+		}
+		catch(Exception $e)
+		{
+			parent::getResponseAsJSON($e);
+		}
+	}
 }
