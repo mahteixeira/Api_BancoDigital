@@ -13,6 +13,10 @@ switch($url)
     case '/correntista/listar':
         CorrentistaController::listar();
     break;
+
+    case '/correntista/conferir':
+        CorrentistaController::ConsultaCPF();
+    break;
         
     case '/correntista/entrar':
         CorrentistaController::Login();

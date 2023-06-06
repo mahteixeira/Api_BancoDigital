@@ -44,4 +44,10 @@ class CorrentistaModel extends Model
 
 		return $dao->getCorrentistaByCpfAndSenha($cpf, $senha);		
 	}
+
+    public function consultaCPF($cpf){
+        $dao = new CorrentistaDAO();
+
+		return $dao->getCorrentistaByCPF($cpf);		
+    }
 }

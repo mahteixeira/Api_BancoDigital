@@ -64,6 +64,18 @@ class CorrentistaController extends Controller
         }
     }
 
+    public static function ConsultaCPF() : void 
+    {
+        $json_obj = json_decode(file_get_contents('php://input'));
+
+
+			$model = new CorrentistaModel();
+			$model->cpf = $json_obj->cpf;
+
+
+			parent::getResponseAsJSON($model->consultaCPF($json_obj->cpf));
+    }
+
     public static function Login() : void
 	{
 		try

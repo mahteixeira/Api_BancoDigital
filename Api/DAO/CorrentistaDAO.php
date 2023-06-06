@@ -88,4 +88,16 @@ class CorrentistaDAO extends DAO {
         return (is_object($obj)) ? $obj : new CorrentistaModel();
     }
 
+    public function getCorrentistabyCPF($cpf)
+    {
+        $sql = "SELECT * FROM correntista c WHERE cfp = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1, $cpf);
+
+        $obj = $stmt->fetchObject("Api\Model\CorrentistaModel");
+
+        return (is_object($obj)) ? $obj : new CorrentistaModel();
+    }
+
 }
