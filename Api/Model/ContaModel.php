@@ -29,13 +29,8 @@ class ContaModel extends Model
 
     public function getContaByIdCorrentista(int $id_correntista)
     {
-        try{
             $dao = new ContaDAO();
 
             $this->rows = $dao->selectByIdCorrentista($id_correntista);
-        } catch (Exception $e)
-        {
-            throw $e;
-        }
     }
 }

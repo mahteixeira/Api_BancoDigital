@@ -1,5 +1,6 @@
 <?php
 
+use Api\Controller\ContaController;
 use Api\Controller\CorrentistaController;
 
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -20,6 +21,14 @@ switch($url)
         
     case '/correntista/entrar':
         CorrentistaController::Login();
+    break;
+
+    case '/conta/criar':
+        ContaController::salvar();
+    break;
+
+    case '/conta/listar':
+        ContaController::listar();
     break;
 
     case '/conta/pix/enviar':

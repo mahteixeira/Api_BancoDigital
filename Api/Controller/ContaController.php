@@ -14,16 +14,16 @@ class ContaController extends Controller
             $json_obj = json_decode(file_get_contents('php://input'));
 
             $model = new ContaModel();
-            $model->id = $json_obj->Id;
-            $model->numero = $json_obj->Numero;
-            $model->tipo = $json_obj->Tipo;
-            $model->senha = $json_obj->Senha;
-            $model->id_correntista = $json_obj->Id_Correntista;
+            $model->id = $json_obj->id;
+            $model->numero = $json_obj->numero;
+            $model->tipo = $json_obj->tipo;
+            $model->senha = $json_obj->senha;
+            $model->id_correntista = $json_obj->id_correntista;
 
-            $model->save();
+            parent::getResponseAsJSON($model->save());
               
         } catch (Exception $e) {
-
+            parent::LogError($e->getPrevious());
             parent::getExceptionAsJSON($e);
         }
     }
@@ -40,6 +40,7 @@ class ContaController extends Controller
               
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
@@ -57,7 +58,28 @@ class ContaController extends Controller
 
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
+
+    public static function ListarContas() : void 
+    {
+        try
+        {
+            $json_obj = json_decode(file_get_contents('php://input'));
+
+
+			$model = new ContaModel();
+			$model->id_correntista = $json_obj->id_correntista;
+
+
+			parent::getResponseAsJSON($model->getContaByIdCorrentista($json_obj->cpf));
+        }
+        catch(Exception $e)
+		{
+			parent::getResponseAsJSON($e);
+		}
+    }
+
 }

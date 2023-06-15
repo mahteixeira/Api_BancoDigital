@@ -65,6 +65,8 @@ class ContaDAO extends DAO{
         $stmt->bindValue(1,$id_correntista);
         $stmt->execute();
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS);
+        $obj = $stmt->fetchObject("Api\Model\ContaModel");
+
+        return (is_object($obj)) ? $obj : new ContaModel();
     }
 }
