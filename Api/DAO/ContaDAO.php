@@ -11,29 +11,37 @@ class ContaDAO extends DAO{
         parent::__construct();
     }
 
-    public function insert(ContaModel $m) : bool
+    public function insert(ContaModel $m) : ?ContaModel
     {
-        $sql = "INSERT INTO conta (numero, tipo, senha, id_correntista) velues (?, ?, ?, ?)";
+        $sql = "INSERT INTO conta (numero, tipo, senha, id_correntista, saldo, limite) values (?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $m->numero);
         $stmt->bindValue(2, $m->tipo);
         $stmt->bindValue(3, $m->senha);
         $stmt->bindValue(4, $m->id_correntista);
+        $stmt->bindValue(5, $m->saldo);
+        $stmt->bindValue(6, $m->limite);
 
-        return $stmt->execute();
+        $stmt->execute();
+
+        $m->id = $this->conexao->lastInsertId();
+
+        return $m;
     }
 
     public function update(ContaModel $m)
     {
-        $sql = "UPDATE conta SET numero=?, tipo=?, senha=?, id_correntista=?  WHERE id=?";
+        $sql = "UPDATE conta SET numero=?, tipo=?, senha=?, id_correntista=?, saldo=?, limite=?  WHERE id=?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $m->numero);
         $stmt->bindValue(2, $m->tipo);
         $stmt->bindValue(3, $m->senha);
         $stmt->bindValue(4, $m->id_correntista);
-        $stmt->bindValue(5, $m->id);
+        $stmt->bindValue(5, $m->saldo);
+        $stmt->bindValue(6, $m->limite);
+        $stmt->bindValue(7, $m->id);
 
         return $stmt->execute();
     }
@@ -68,5 +76,14 @@ class ContaDAO extends DAO{
         $obj = $stmt->fetchObject("Api\Model\ContaModel");
 
         return (is_object($obj)) ? $obj : new ContaModel();
+    }
+
+    public function numeroConta(){
+        $num_pt1 = rand(10000000, 99999999);
+        $num_pt2 = rand(0,9);
+
+        $numero_conta = $num_pt1."-".$num_pt2;
+
+        return $numero_conta;
     }
 }
