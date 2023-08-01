@@ -28,7 +28,9 @@ class CorrentistaDAO extends DAO {
 
             $stmt->execute();
 
-           // $m->id = $this->conexao->lastInsertId();            
+            $m->id = $this->conexao->lastInsertId();  
+            
+            return $m;
 
         } catch(PDOException $e)
         {

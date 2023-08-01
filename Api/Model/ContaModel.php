@@ -33,4 +33,6 @@ class ContaModel extends Model
 
             $this->rows = $dao->selectByIdCorrentista($id_correntista);
     }
+
+  
 }

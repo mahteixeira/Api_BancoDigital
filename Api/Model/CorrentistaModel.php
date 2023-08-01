@@ -18,16 +18,17 @@ class CorrentistaModel extends Model
         $dao_correntista = new CorrentistaDAO();
 
         $model_preenchido = $dao_correntista->insert($this);
+     
 
         // Se o insert do correntista deu certo
         // vamos inserir sua conta corrente e poupança
-        if($model_preenchido->id != null)
+        if($model_preenchido->id !== null)
         {
+   
             $dao_conta = new ContaDAO();
 
             // Abrindo a conta corrente
             $conta_corrente = new ContaModel();
-            $conta_corrente->numero = $dao_conta->numeroConta();
             $conta_corrente->senha = $model_preenchido->senha;
             $conta_corrente->id_correntista = $model_preenchido->id;
             $conta_corrente->saldo = 0;
@@ -38,9 +39,9 @@ class CorrentistaModel extends Model
             $model_preenchido->lista_conta[] = $conta_corrente;
 
             // Abrindo a conta poupança
+
             $conta_poupanca = new ContaModel();
             $conta_poupanca->id_correntista = $model_preenchido->id;
-            $conta_poupanca->numero = $dao_conta->numeroConta();
             $conta_poupanca->senha = $model_preenchido->senha;
             $conta_poupanca->saldo = 0;
             $conta_poupanca->limite = 0;
