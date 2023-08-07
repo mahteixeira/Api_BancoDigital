@@ -78,4 +78,15 @@ class ContaDAO extends DAO{
         return (is_object($obj)) ? $obj : new ContaModel();
     }
 
+    public function numeroConta(){
+
+        $pt1 = rand(10000000,99999999);
+        $pt2 = rand(0,9);
+
+        $num_conta = $pt1."-".$pt2;
+
+        return $num_conta;
+
+    }
+
 }
