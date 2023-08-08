@@ -66,16 +66,16 @@ class ContaDAO extends DAO{
         return $stmt->fetchAll(DAO::FETCH_CLASS);
     }
 
-    public function selectByIdCorrentista(int $id_correntista){
+    public function selectByIdCorrentista(int $id_correntista) : array
+    {
+        
         $sql = "SELECT * FROM conta WHERE id_correntista=?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1,$id_correntista);
         $stmt->execute();
 
-        $obj = $stmt->fetchObject("Api\Model\ContaModel");
-
-        return (is_object($obj)) ? $obj : new ContaModel();
+        return $stmt->fetchAll("Api\Model\ContaModel");
     }
 
     public function numeroConta(){

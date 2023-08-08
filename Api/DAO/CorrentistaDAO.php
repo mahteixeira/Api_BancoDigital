@@ -87,7 +87,15 @@ class CorrentistaDAO extends DAO {
 
         $obj = $stmt->fetchObject("Api\Model\CorrentistaModel");
 
-        return (is_object($obj)) ? $obj : new CorrentistaModel();
+        if(is_object($obj))
+        {
+            // chamar a dao de contas
+            $obj->lista_conta = (new ContaDAO)->selectByIdCorrentista($obj->id);
+
+            return $obj;
+            
+        } else
+            return new CorrentistaModel();
     }
 
     public function getCorrentistabyCPF($cpf)

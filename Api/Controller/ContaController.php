@@ -34,12 +34,15 @@ class ContaController extends Controller
     {
         try
         {
-            $model = new ContaModel();
-            
-            $model->getAllRows();
+            $json_obj = json_decode(file_get_contents('php://input'));
 
-            parent::getResponseAsJSON($model->rows);
-              
+
+			$model = new ContaModel();
+			$model->id_correntista = $json_obj->id_correntista;
+
+
+			parent::getResponseAsJSON($model->getContaByIdCorrentista($json_obj->id));
+
         } catch (Exception $e) {
 
             parent::LogError($e);
@@ -65,23 +68,6 @@ class ContaController extends Controller
         }
     }
 
-    public static function ListarContas() : void 
-    {
-        try
-        {
-            $json_obj = json_decode(file_get_contents('php://input'));
 
-
-			$model = new ContaModel();
-			$model->id_correntista = $json_obj->id_correntista;
-
-
-			parent::getResponseAsJSON($model->getContaByIdCorrentista($json_obj->cpf));
-        }
-        catch(Exception $e)
-		{
-			parent::getResponseAsJSON($e);
-		}
-    }
 
 }
