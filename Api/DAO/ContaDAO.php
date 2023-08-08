@@ -75,7 +75,7 @@ class ContaDAO extends DAO{
         $stmt->bindValue(1,$id_correntista);
         $stmt->execute();
 
-        return $stmt->fetchAll("Api\Model\ContaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\ContaModel");
     }
 
     public function numeroConta(){
