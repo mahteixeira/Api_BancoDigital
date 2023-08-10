@@ -28,12 +28,14 @@ class CorrentistaModel extends Model
             $dao_conta = new ContaDAO();
 
             // Abrindo a conta corrente
+            
             $conta_corrente = new ContaModel();
             $conta_corrente->senha = $model_preenchido->senha;
+            $conta_corrente->
             $conta_corrente->id_correntista = $model_preenchido->id;
             $conta_corrente->saldo = 0;
             $conta_corrente->limite = 100;
-            $conta_corrente->tipo = 'C';
+            $conta_corrente->tipo = 'Conta Corrente';
             $conta_corrente = $dao_conta->insert($conta_corrente);
 
             $model_preenchido->lista_conta[] = $conta_corrente;
@@ -45,7 +47,7 @@ class CorrentistaModel extends Model
             $conta_poupanca->senha = $model_preenchido->senha;
             $conta_poupanca->saldo = 0;
             $conta_poupanca->limite = 0;
-            $conta_poupanca->tipo = 'P';
+            $conta_poupanca->tipo = 'Conta Poupança';
             $conta_poupanca = $dao_conta->insert($conta_poupanca);
 
             $model_preenchido->lista_conta[] = $conta_poupanca;
