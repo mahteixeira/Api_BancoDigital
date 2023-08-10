@@ -29,9 +29,10 @@ class CorrentistaModel extends Model
 
             // Abrindo a conta corrente
             
+            $numeroconta = $dao_conta->numeroConta();
             $conta_corrente = new ContaModel();
             $conta_corrente->senha = $model_preenchido->senha;
-            $conta_corrente->
+            $conta_corrente->numero = $numeroconta;
             $conta_corrente->id_correntista = $model_preenchido->id;
             $conta_corrente->saldo = 0;
             $conta_corrente->limite = 100;
@@ -41,10 +42,11 @@ class CorrentistaModel extends Model
             $model_preenchido->lista_conta[] = $conta_corrente;
 
             // Abrindo a conta poupança
-
+            $numeroconta2 = $dao_conta->numeroConta();
             $conta_poupanca = new ContaModel();
             $conta_poupanca->id_correntista = $model_preenchido->id;
             $conta_poupanca->senha = $model_preenchido->senha;
+            $conta_poupanca->numero = $numeroconta2;
             $conta_poupanca->saldo = 0;
             $conta_poupanca->limite = 0;
             $conta_poupanca->tipo = 'Conta Poupança';
