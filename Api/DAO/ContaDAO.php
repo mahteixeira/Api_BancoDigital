@@ -89,4 +89,25 @@ class ContaDAO extends DAO{
 
     }
 
+    public function selectByNumeroConta(int $numero)
+    {
+        
+        $sql = "SELECT * FROM conta WHERE numero=?";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1,$numero);
+        
+        $obj = $stmt->fetchObject("Api\Model\ContaModel");
+
+        if (is_object($obj))
+        {
+            var_dump($obj);
+            return $obj;
+        }
+        else return new ContaModel();
+
+        
+    }
+
+
 }

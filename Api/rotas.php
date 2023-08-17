@@ -31,6 +31,9 @@ switch($url)
         ContaController::listar();
     break;
 
+    case '/conta/entrar':
+        ContaController::SelecionarConta();
+
     case '/conta/pix/enviar':
 
     case 'conta/pix/receber':
