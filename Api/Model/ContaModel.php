@@ -7,7 +7,7 @@ use Exception;
 
 class ContaModel extends Model 
 {
-    public $id, $numero, $tipo, $senha, $id_correntista, $saldo, $limite;
+    public $id, $numero, $tipo, $id_correntista, $saldo, $limite;
 
     public function save()
     {
@@ -34,7 +34,7 @@ class ContaModel extends Model
             $this->rows = $dao->selectByIdCorrentista($id_correntista);
     }
 
-    public function getContaByNumeroConta(int $numero)
+    public function getContaByNumeroConta(string $numero)
     {
             $dao = new ContaDAO();
 

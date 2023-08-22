@@ -31,7 +31,6 @@ class CorrentistaModel extends Model
             
             $numeroconta = $dao_conta->numeroConta();
             $conta_corrente = new ContaModel();
-            $conta_corrente->senha = $model_preenchido->senha;
             $conta_corrente->numero = $numeroconta;
             $conta_corrente->id_correntista = $model_preenchido->id;
             $conta_corrente->saldo = 0;
@@ -45,7 +44,6 @@ class CorrentistaModel extends Model
             $numeroconta2 = $dao_conta->numeroConta();
             $conta_poupanca = new ContaModel();
             $conta_poupanca->id_correntista = $model_preenchido->id;
-            $conta_poupanca->senha = $model_preenchido->senha;
             $conta_poupanca->numero = $numeroconta2;
             $conta_poupanca->saldo = 0;
             $conta_poupanca->limite = 0;
