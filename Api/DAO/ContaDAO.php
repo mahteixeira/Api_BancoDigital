@@ -13,7 +13,7 @@ class ContaDAO extends DAO{
 
     public function insert(ContaModel $m) : ?ContaModel
     {
-        $sql = "INSERT INTO conta (numero, tipo, id_correntista, saldo, limite) values (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO conta (numero, tipo, id_correntista, saldo, limite) values (?, ?, ?, ?, ?)";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $m->numero);
@@ -88,18 +88,18 @@ class ContaDAO extends DAO{
     }
 
     public function selectByNumeroConta(string $numero)
-    {
-        
+    {      
         $sql = "SELECT * FROM conta WHERE numero=?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1,$numero);
+        $stmt->execute();
         
         $obj = $stmt->fetchObject("Api\Model\ContaModel");
 
         if (is_object($obj))
         {
-            var_dump($obj);
+            //var_dump($obj);
             return $obj;
         }
         else return new ContaModel();

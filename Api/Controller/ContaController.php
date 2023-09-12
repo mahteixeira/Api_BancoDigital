@@ -73,13 +73,7 @@ class ContaController extends Controller
 		{
 			$json_obj = json_decode(file_get_contents('php://input'));
 
-
-			$model = new ContaModel();
-			$model->numero = $json_obj->numero;
-
-
-			parent::getResponseAsJSON($model->getContaByNumeroConta($json_obj->numero));
-
+			parent::getResponseAsJSON((new ContaModel())->getContaByNumeroConta($json_obj->numero));
 		}
 		catch(Exception $e)
 		{

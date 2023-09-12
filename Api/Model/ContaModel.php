@@ -36,9 +36,7 @@ class ContaModel extends Model
 
     public function getContaByNumeroConta(string $numero)
     {
-            $dao = new ContaDAO();
-
-            $this->rows = $dao->selectByNumeroConta($numero);
+        return (new ContaDAO())->selectByNumeroConta($numero);
     }
   
 }
