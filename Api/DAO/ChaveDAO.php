@@ -55,4 +55,16 @@ class ChaveDAO extends DAO{
 
         return $stmt->fetchAll(DAO::FETCH_CLASS);
     }
+
+    public function selectByIdConta(string $id_conta)
+    {      
+        $sql = "SELECT * FROM conta WHERE id_conta=?";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1,$id_conta);
+        $stmt->execute();
+
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\ChaveModel");
+    
+    }
 }

@@ -2,12 +2,14 @@
 
 namespace Api\Model;
 
+use Api\DAO\ChaveDAO;
 use Api\DAO\ContaDAO;
 use Exception;
 
 class ContaModel extends Model 
 {
     public $id, $numero, $tipo, $id_correntista, $saldo, $limite;
+    public $lista_pix;
 
     public function save()
     {
@@ -37,6 +39,15 @@ class ContaModel extends Model
     public function getContaByNumeroConta(string $numero)
     {
         return (new ContaDAO())->selectByNumeroConta($numero);
+    }
+
+    public function getAllChaves()
+    {
+        include './DAO/ChaveDAO.php';
+
+        $dao = new ChaveDAO;
+
+        $this->lista_pix = $dao->select();
     }
   
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Api\Controller\ChaveController;
 use Api\Controller\ContaController;
 use Api\Controller\CorrentistaController;
 
@@ -33,7 +34,16 @@ switch($url)
 
     case '/conta/entrar':
         ContaController::SelecionarConta();
+    break;
 
+    case '/conta/pix/adicionar':
+        ChaveController::salvar();
+    break;
+    
+    case '/conta/pix/adicionar':
+        ChaveController::listar();
+    break;
+    
     case '/conta/pix/enviar':
 
     case 'conta/pix/receber':
