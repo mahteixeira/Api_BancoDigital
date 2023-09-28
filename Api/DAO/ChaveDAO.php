@@ -11,21 +11,25 @@ class ChaveDAO extends DAO{
         parent::__construct();
     }
 
-    public function insert(ChaveModel $m) : bool
+    public function insert(ChaveModel $m) : ?ChaveModel
     {
-        $sql = "INSERT INTO chave_pix (chave, tipo, id_conta) velues (?, ?, ?)";
+        $sql = "INSERT INTO chave_pix (chave, tipo, id_conta) values (?, ?, ?)";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $m->chave);
         $stmt->bindValue(2, $m->tipo);
         $stmt->bindValue(3, $m->id_conta);
 
-        return $stmt->execute();
+        $stmt->execute();
+
+        $m->id = $this->conexao->lastInsertId();
+
+        return $m;
     }
 
     public function update(ChaveModel $m)
     {
-        $sql = "UPDATE chave_pix SET chave=?, tipo=?, id_conta=?  WHERE id=?";
+        $sql = "UPDATE chave_pix SET chave=?, tipo=?, id_conta=? WHERE id=?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $m->chave);

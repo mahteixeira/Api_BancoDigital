@@ -14,10 +14,10 @@ class ChaveController extends Controller
             $json_obj = json_decode(file_get_contents('php://input'));
 
             $model = new ChaveModel();
-            $model->id = $json_obj->Id;
-            $model->chave = $json_obj->Chave;
-            $model->tipo = $json_obj->Tipo;
-            $model->id_conta = $json_obj->Id_Conta;
+            $model->id = $json_obj->id;
+            $model->chave = $json_obj->chave;
+            $model->tipo = $json_obj->tipo;
+            $model->id_conta = $json_obj->id_conta;
 
             $model->save();
               
