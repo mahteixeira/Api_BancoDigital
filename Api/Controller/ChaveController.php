@@ -45,7 +45,7 @@ class ChaveController extends Controller
 
     public static function deletar() : void
     {
-        try 
+        /*try 
         {
             $model = new ChaveModel();
             
@@ -57,6 +57,6 @@ class ChaveController extends Controller
         } catch (Exception $e) {
 
             parent::getExceptionAsJSON($e);
-        }
+        }*/
     }
 }

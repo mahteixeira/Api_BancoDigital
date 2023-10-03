@@ -6,7 +6,6 @@ use Exception;
 
 abstract class Controller 
 {
-  
     protected static function getResponseAsJSON($data)
     {
         header("Access-Control-Allow-Origin: *");
@@ -16,6 +15,11 @@ abstract class Controller
         header("Pragma: public");
 
         exit(json_encode($data));
+    }
+
+    function __destruct()
+    {
+        
     }
 
 
