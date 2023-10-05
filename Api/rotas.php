@@ -39,6 +39,11 @@ switch($url)
     case '/conta/pix/adicionar':
        ChaveController::salvar();
     break;
+
+    case '/conta/pix/listar':
+        ChaveController::listar();
+     break;
+     
     
 
  //   case '/conta/pix/enviar':

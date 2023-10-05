@@ -27,25 +27,30 @@ class ChaveController extends Controller
         }
     }
 
+
     public static function listar() : void
     {
         try
         {
-            $model = new ChaveModel();
-            
-            $model->getAllRows();
+            $json_obj = json_decode(file_get_contents('php://input'));
 
-            parent::getResponseAsJSON($model->rows);
-              
+
+			$model = new ChaveModel();
+			$model->id_conta = $json_obj->id_conta;
+
+
+			parent::getResponseAsJSON($model->GetChavePixByIdConta($json_obj->id));
+
         } catch (Exception $e) {
 
+            parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
     }
 
     public static function deletar() : void
     {
-        /*try 
+        try 
         {
             $model = new ChaveModel();
             
@@ -57,6 +62,6 @@ class ChaveController extends Controller
         } catch (Exception $e) {
 
             parent::getExceptionAsJSON($e);
-        }*/
+        }
     }
 }
